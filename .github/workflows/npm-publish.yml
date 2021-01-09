@@ -17,16 +17,14 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      - name: "Edit config"  
-        run: git config --global user.email "boumrz@gmail.com" && git config --global user.name "boumrz"
-      - name: "Version patch"
-        run: npm version patch  
+
       - name: "Install dependencies"
         run: npm install
       - name: "Npm publish"
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
       - name: "telegram Notification"
         uses: "appleboy/telegram-action@master"
         with:
