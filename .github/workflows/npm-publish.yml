@@ -20,13 +20,12 @@ jobs:
       - name: "Install dependencies"
         run: npm install
       - name: "Npm publish"
-        run: npm publish
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: "telegram Notification"
         uses: "appleboy/telegram-action@master"
         with:
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           args: ${{ github.event_name }}
-
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
