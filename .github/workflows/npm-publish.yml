@@ -17,6 +17,11 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
+        
+      - name: "Edit config"  
+        run: git config --global user.email "boumrz@gmail.com" && git config --global user.name "boumrz"
+      - name: "Version patch"
+        run: npm version 0.1.${{GITHUB_RUN_ID}} 
 
       - name: "Install dependencies"
         run: npm install
@@ -30,4 +35,4 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          args: New 0.1.* version publish 
+          args: New 0.1.${{GITHUB_RUN_ID}}  version publish 
