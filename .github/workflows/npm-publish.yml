@@ -17,9 +17,22 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
+      - name: "Version patch"
+        run: npm version patch
       - name: "Install dependencies"
         run: npm install
       - name: "Npm publish"
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          
+  notification_in_telegram:  
+    name: "Telegram Notification"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "telegram Notification"
+        uses: "appleboy/telegram-action@master"
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          args: ${{ github.event_name }}
